@@ -85,12 +85,13 @@ d3.json(earthquakeUrl).then(function (data) {
     },
     // Set the style for each circleMarker using our styleInfo function.
     style: styleInfo,
-    // Created a popup for each marker to display the magnitude and location of the earthquake after the marker has been created and styled
+    // Created a popup for each marker to display the magnitude, location and depth of each earthquake after the marker has been created and styled
     onEachFeature: function (feature, layer) {
-        layer.bindPopup(
-            `Magnitude: ${feature.properties.mag}<br>Location: ${feature.properties.place}`
-        );
-    }
+      let depth = feature.geometry.coordinates[2]; // Correct way to access depth
+      layer.bindPopup(
+          `Magnitude: ${feature.properties.mag}<br>Location: ${feature.properties.place}<br>Depth: ${depth} km`
+      );
+  }
   // Added the data to the earthquake layer instead of directly to the map.
   }).addTo(earthquakes);
 
